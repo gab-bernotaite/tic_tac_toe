@@ -155,10 +155,12 @@ describe 'tictactoe game' do
     end
 end
 
-# describe 'when play() is called' do
-#     it 'ask the user if they want to go first' do
-#         expect{ play() }.to output("Welcome to TicTacToe!! Would you like to go first? Yes or No: ").to_stdout
-#     end
+describe 'when play() is called' do
+    new_game = Tic_tac_toe.new
+    new_game.play
+    # it 'ask the user if they want to go first' do
+    #     expect{ play() }.to output("Welcome to TicTacToe!! Would you like to go first? Yes or No: ").to_stdout
+    # end
 
     # it 'when user gives an answer that is not No or Yes then ask again repeating what is expected' do
     #     play()
@@ -166,7 +168,7 @@ end
     #     expect{ play() }.to output("Try again. Would you like to go first? Yes or No: ").to_stdout
     #     $stdin = STDIN
     # end
-# end
+end
 
 # start with an empty grid
 # the player makes a move - X i

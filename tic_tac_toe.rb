@@ -12,16 +12,21 @@
 
 
 class Tic_tac_toe
-    available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    @available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     def play()
+        
         print "Welcome to TicTacToe!! Would you like to go first? Yes or No: "
-        start_input.upcase = gets.chomp
-        if input == "YES" 
+        start_input = gets.chomp
+        start_input = start_input.upcase!
+
+        grid = initialise_grid
+        
+        if start_input == "YES" 
             puts "Please enter one of the following numbers: #{available_numbers}"
             user_play_input = gets.chomp.to_i
             
-            
-
+            grid = next_turn("player", grid, user_play_input)
+            print_grid(grid)
         end
     end
 
@@ -81,11 +86,11 @@ class Tic_tac_toe
         !grid.include?("") && !is_winner(grid)
     end
 
-    def print_grid
-        puts "#{initialise_grid[0]} | #{initialise_grid[1]} | #{initialise_grid[2]}"
+    def print_grid(grid)
+        puts "#{grid[0]} | #{grid[1]} | #{grid[2]}"
         puts "------"
-        puts "#{initialise_grid[3]} | #{initialise_grid[4]} | #{initialise_grid[5]}"
+        puts "#{grid[3]} | #{grid[4]} | #{grid[5]}"
         puts "------"
-        puts "#{initialise_grid[6]} | #{initialise_grid[7]} | #{initialise_grid[8]}"
+        puts "#{grid[6]} | #{grid[7]} | #{grid[8]}"
     end
 end

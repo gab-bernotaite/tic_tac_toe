@@ -11,8 +11,12 @@
 #     position number = gets.to_i
 
 
+
+
+
+
 class Tic_tac_toe
-    @available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    @@available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     def play()
         
         print "Welcome to TicTacToe!! Would you like to go first? Yes or No: "
@@ -22,23 +26,23 @@ class Tic_tac_toe
         grid = initialise_grid
         
         if start_input == "YES" 
-            puts "Please enter one of the following numbers: #{available_numbers}"
+            puts "Please enter one of the following numbers:"
+            print_grid(initialise_grid)
             user_play_input = gets.chomp.to_i
-            
             grid = next_turn("player", grid, user_play_input)
             print_grid(grid)
         end
     end
 
     def initialise_grid
-        ["", "", "",
-        "", "", "",
-        "", "", ""]
+        ["1", "2", "3",
+        "4", "5", "6",
+        "7", "8", "9"]
     end
 
-    def next_turn(player_type, grid, index)
+    def next_turn(player_type, grid, user_play_input)
         # check for invalid index
-        if index < 1 || index > 9
+        if user_play_input < 1 || user_play_input > 9
             puts "invalid index try a number between 0-9"
             return
         end
@@ -50,11 +54,15 @@ class Tic_tac_toe
             token = "O"
         end
         # check to see if index has already been used
-        if grid[index-1] != ""
+        # puts @@available_numbers
+        if !@@available_numbers.include?(user_play_input)
             puts "invalid index this space is already taken try again\n"
         end
-        grid[index-1] = token
-
+        # if grid[index-1] != 
+            
+        # end
+        grid[user_play_input-1] = token
+        @@available_numbers.delete(user_play_input)
         grid
     end
 
@@ -88,9 +96,9 @@ class Tic_tac_toe
 
     def print_grid(grid)
         puts "#{grid[0]} | #{grid[1]} | #{grid[2]}"
-        puts "------"
+        puts "---------"
         puts "#{grid[3]} | #{grid[4]} | #{grid[5]}"
-        puts "------"
+        puts "---------"
         puts "#{grid[6]} | #{grid[7]} | #{grid[8]}"
     end
 end

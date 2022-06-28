@@ -11,17 +11,13 @@ describe 'tictactoe game' do
     it 'returns grid with X at index 1 of grid if human player enters 2' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        expect(new_game.next_turn("player", grid, 2)).to eq(["", "X", "",
-                                                    "", "", "",
-                                                    "", "", ""])
+        expect(new_game.next_turn("player", grid, 2)[1]).to eq("X")
     end
 
     it 'returns grid with O at index 1 of grid if computer player enters 2' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        expect(new_game.next_turn("computer", grid, 2)).to eq(["", "O", "",
-                                                      "", "", "",
-                                                      "", "", ""])
+        expect(new_game.next_turn("computer", grid, 2)[1]).to eq("O")
     end
 
     it 'if player enters number out of bounds not between 1 & 9 inclusive then ask user to try again' do

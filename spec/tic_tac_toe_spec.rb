@@ -11,27 +11,27 @@ describe 'tictactoe game' do
     it 'returns grid with X at index 1 of grid if human player enters 2' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        expect(new_game.next_turn("player", grid, 2)[1]).to eq("X")
+        expect(new_game.person_play(grid)[1]).to eq("X")
     end
 
-    it 'returns grid with O at index 1 of grid if computer player enters 2' do
+    it 'returns grid with O at index 1 of grid if computer chooses enters 2' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        expect(new_game.next_turn("computer", grid, 2)[1]).to eq("O")
+        expect(new_game.computer_play(grid)[1]).to eq("O")
     end
 
     it 'if player enters number out of bounds not between 1 & 9 inclusive then ask user to try again' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        expect { new_game.next_turn("player", grid, 0) }.to output("invalid index try a number between 0-9\n").to_stdout
+        expect { new_game.person_play(grid) }.to output("invalid index try a number between 0-9\n").to_stdout
     end
 
 
     it 'if player enters number that has already been selected then tell user to try again' do
         new_game = Tic_tac_toe.new
         grid = new_game.initialise_grid
-        new_game.next_turn("player", grid, 1)
-        expect { new_game.next_turn("player", grid, 1) }.to output("invalid index this space is already taken try again\n").to_stdout
+        new_game.person_play(grid)
+        expect { new_game.person_play(grid) }.to output("invalid input, try again\n").to_stdout
     end
 
     it 'if top row have all of the same X or Os then this is a winning game so return ' do
@@ -41,103 +41,104 @@ describe 'tictactoe game' do
             "", "", "",
             "", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "",
             "X", "X", "X",
             "", "", ""
+        
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "",
             "", "", "",
             "X", "X", "X"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "X", "", "",
             "X", "", "",
             "X", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "X", "",
             "", "X", "",
             "", "X", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "X",
             "", "", "X",
             "", "", "X"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "X", "", "",
             "", "X", "",
             "", "", "X"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "X",
             "", "X", "",
             "X", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "O", "", "",
             "O", "", "",
             "O", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "O", "O", "O",
             "", "", "",
             "", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "",
             "O", "O", "O",
             "", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "",
             "", "", "",
             "O", "O", "O"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "O", "", "",
             "O", "", "",
             "O", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "O", "",
             "", "O", "",
             "", "O", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "O",
             "", "", "O",
             "", "", "O"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "O", "", "",
             "", "O", "",
             "", "", "O"
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
         grid = [
             "", "", "O",
             "", "O", "",
             "O", "", ""
         ]
-        expect(new_game.is_winner(grid)).to eq(true)
+        expect(new_game.win_game(grid)).to eq(true)
     end
     
     it 'if noone has got a line and all spaces are filled then it is a draw so return true' do
@@ -151,9 +152,9 @@ describe 'tictactoe game' do
     end
 end
 
-describe 'when play() is called' do
+describe 'when play_game() is called' do
     new_game = Tic_tac_toe.new
-    new_game.play
+    new_game.play_game
     # it 'ask the user if they want to go first' do
     #     expect{ play() }.to output("Welcome to TicTacToe!! Would you like to go first? Yes or No: ").to_stdout
     # end

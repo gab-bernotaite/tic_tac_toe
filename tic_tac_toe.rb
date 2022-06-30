@@ -10,9 +10,16 @@
 # def player_entry(position_number)
 #     position number = gets.to_i
 
+
+
+
+# if we separate into classes put them into different classes and put classes into different files also
+# 
+
 class Tic_tac_toe
 
     def initialise_grid
+        # initialise - constructor - this is called when you pass something into the class, initialises an element you create in that class
         ["1", "2", "3",
         "4", "5", "6",
         "7", "8", "9"]
@@ -38,22 +45,28 @@ class Tic_tac_toe
 
         else
             puts "Invalid entry, the game will restart"
+            # ask question while input is not yes or no
+            # question --> start function, give input
+            # if yes - condition in while loop will break
+            # if answer is neither yes or no, it will keep asking question until loop is broken
             play_game()
         end
 
         while win_game(grid) == false || is_draw(grid) == false
+            # shouldn't check if win game is true inside this loop
+            # need to make it clear who the winner is 
             if whos_turn_is_it_next == "computer"
                 whos_turn_is_it_next = "person"
                 grid = computer_play(grid)
                 if win_game(grid)
-                    puts "You Win!! YAAY!!"
+                    puts "Computer Wins!! "
                     break
                 end
             else
                 whos_turn_is_it_next = "computer"
                 grid = person_play(grid)
                 if win_game(grid)
-                    puts "Computer Wins!! UNLUCKY!!"
+                    puts "You win!!!"
                     break
                 end
             end
@@ -74,6 +87,7 @@ class Tic_tac_toe
         @@available_numbers.delete(user_play_input)
         grid
     end
+    # to test for next move - take grid as argument, the grid that you pass in can be in any state - create new board and put marks on the board - pass that board to the function, the function should do the right action based on the current state of the board
 
     def computer_play(grid)
         token = "O"
@@ -92,6 +106,8 @@ class Tic_tac_toe
 
 
     def win_game(grid)
+        # name this function so you can answer with true or false, ? at the end
+        # win_game?
         # check top row
         top_row = grid[0] + grid[1] + grid[2]
         middle_row = grid[3] + grid[4] + grid[5]
@@ -116,6 +132,7 @@ class Tic_tac_toe
     end
     
     def is_draw(grid)
+        # draw_game?
         !grid.include?("") && !win_game(grid)
     end
 end

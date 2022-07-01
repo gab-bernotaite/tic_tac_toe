@@ -41,104 +41,104 @@ describe 'tictactoe game' do
             "", "", "",
             "", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "",
             "X", "X", "X",
             "", "", ""
         
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "",
             "", "", "",
             "X", "X", "X"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "X", "", "",
             "X", "", "",
             "X", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "X", "",
             "", "X", "",
             "", "X", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "X",
             "", "", "X",
             "", "", "X"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "X", "", "",
             "", "X", "",
             "", "", "X"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "X",
             "", "X", "",
             "X", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "O", "", "",
             "O", "", "",
             "O", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "O", "O", "O",
             "", "", "",
             "", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "",
             "O", "O", "O",
             "", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "",
             "", "", "",
             "O", "O", "O"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "O", "", "",
             "O", "", "",
             "O", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "O", "",
             "", "O", "",
             "", "O", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "O",
             "", "", "O",
             "", "", "O"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "O", "", "",
             "", "O", "",
             "", "", "O"
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
         grid = [
             "", "", "O",
             "", "O", "",
             "O", "", ""
         ]
-        expect(new_game.win_game(grid)).to eq(true)
+        expect(new_game.win_game?(grid)).to eq(true)
     end
     
     it 'if noone has got a line and all spaces are filled then it is a draw so return true' do
@@ -148,7 +148,7 @@ describe 'tictactoe game' do
             "X", "X", "O",
             "O", "O", "X"
         ]
-        expect(new_game.is_draw(grid)).to eq(true)
+        expect(new_game.is_draw?(grid)).to eq(true)
     end
 end
 

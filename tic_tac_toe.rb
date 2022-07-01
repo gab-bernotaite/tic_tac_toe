@@ -13,7 +13,18 @@
 
 
 
-# if we separate into classes put them into different classes and put classes into different files also
+
+# To-do list:
+# 1. Fix exc eption handling if something that isnt yes or no is entered at the start of the game
+# 2. Draw game - add output to say there was a draw
+# 3. Make computer game function intelligent
+# 4. Win game while loop - take out inside checks and replace with player 1 or player 2 won, add game retart option
+# 5. Add a function that determines who the winner is
+# 6. separate into classes
+# 7. separate all clsses and corresponding tests into separate files
+
+
+# ------->>>>>>>> if we separate into classes put them into different classes and put classes into different files also
 # 
 
 class Tic_tac_toe
@@ -28,7 +39,7 @@ class Tic_tac_toe
     @@available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def play_game
-        print "Welcome to TicTacToe!! Would you like to go first? Yes or No: "
+        print "Welcome to TicTacToe!! Would you like to go first? Yes or No: \n \n "
         start_input = gets.chomp
         start_input = start_input.upcase!
 
@@ -52,21 +63,25 @@ class Tic_tac_toe
             play_game()
         end
 
-        while win_game(grid) == false || is_draw(grid) == false
+        # once this breaks it needs to ask user if they want to play again
+        while win_game?(grid) == false || is_draw?(grid) == false
             # shouldn't check if win game is true inside this loop
             # need to make it clear who the winner is 
+            # return hash that holds win = true and player
             if whos_turn_is_it_next == "computer"
                 whos_turn_is_it_next = "person"
                 grid = computer_play(grid)
-                if win_game(grid)
-                    puts "Computer Wins!! "
+                if win_game?(grid)
+                    print_grid(grid)
+                    puts "\n \n Computer Wins!! "
                     break
                 end
             else
                 whos_turn_is_it_next = "computer"
                 grid = person_play(grid)
-                if win_game(grid)
-                    puts "You win!!!"
+                if win_game?(grid)
+                    print_grid(grid)
+                    puts "\n \n You win!!!"
                     break
                 end
             end
@@ -76,7 +91,7 @@ class Tic_tac_toe
 
     def person_play(grid)
         token = "X"
-        puts "Please enter one of the following numbers:"
+        puts "\n Please enter one of the following numbers: \n \n"
         print_grid(grid)
         user_play_input = gets.chomp.to_i
         if !@@available_numbers.include?(user_play_input) || user_play_input == nil
@@ -91,21 +106,16 @@ class Tic_tac_toe
 
     def computer_play(grid)
         token = "O"
-        # available_positions = @@available_numbers.length
-        
-        # randomizer = Random.new()
-        # computer_choice_position = grid[randomizer.rand(0..available_positions)]
         computer_choice_position = @@available_numbers.sample()
         if computer_choice_position != nil
             grid[computer_choice_position-1] = token
         end
         @@available_numbers.delete(computer_choice_position)
-        print_grid(grid)
         grid
     end
 
 
-    def win_game(grid)
+    def win_game?(grid)
         # name this function so you can answer with true or false, ? at the end
         # win_game?
         # check top row
@@ -131,7 +141,7 @@ class Tic_tac_toe
         end
     end
     
-    def is_draw(grid)
+    def is_draw?(grid)
         # draw_game?
         !grid.include?("") && !win_game(grid)
     end

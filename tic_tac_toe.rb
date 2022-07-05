@@ -15,8 +15,6 @@
 
 
 # To-do list:
-
-# 3. Win game while loop - take out inside checks and replace with player 1 or player 2 won, add game retart option
 # 4. Add a function that determines who the winner is
 # 5. separate into classes
 # 6. separate all clsses and corresponding tests into separate files
@@ -29,77 +27,62 @@
 
 class Tic_tac_toe
 
-    def initialise_grid
-        # initialise - constructor - this is called when you pass something into the class, initialises an element you create in that class
-        ["1", "2", "3",
-        "4", "5", "6",
-        "7", "8", "9"]
-    end
+    # def initialise_grid
+    #     # initialise - constructor - this is called when you pass something into the class, initialises an element you create in that class
+    #     ["1", "2", "3",
+    #     "4", "5", "6",
+    #     "7", "8", "9"]
+    # end
 
     @@available_numbers = []
+    @@whos_turn_is_it_next = ""
+    @@grid = []
 
-    def play_game
-        @@available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    # returns who starts game
+    def who_starts_game()
         print "Welcome to TicTacToe!! Would you like to go first? Yes or No: \n \n "
         start_input = gets.chomp
         start_input = start_input.upcase!
-
-        grid = initialise_grid
-        whos_turn_is_it_next = ""
-
         if start_input == "YES"
-            whos_turn_is_it_next = "computer"
-            grid = person_play(grid)
-
+            "person"
         elsif start_input == "NO"
-            whos_turn_is_it_next = "person"
-            grid = computer_play(grid)
-
+            "computer"
         else
             puts "Invalid entry, the game will restart"
-            # ask question while input is not yes or no
-            # question --> start function, give input
-            # if yes - condition in while loop will break
-            # if answer is neither yes or no, it will keep asking question until loop is broken
-            play_game()
-        end
-
-        # once this breaks it needs to ask user if they want to play again
-        while !win_game?(grid) || !is_draw?(grid)
-            # shouldn't check if win game is true inside this loop
-            # need to make it clear who the winner is 
-            # return hash that holds win = true and player
-
-            if whos_turn_is_it_next == "computer"
-                whos_turn_is_it_next = "person"
-                grid = computer_play(grid)
-                if win_game?(grid)
-                    print_grid(grid)
-                    puts "\n \n Computer Wins!! "
-                    break
-                    play_game()
-                end
-                if is_draw?(grid)
-                    puts "\n It's a draw!!"
-                    play_game()
-                end
-            else
-                whos_turn_is_it_next = "computer"
-                grid = person_play(grid)
-                if win_game?(grid)
-                    print_grid(grid)
-                    puts "\n \n You win!!!"
-                    break
-                    play_game()
-                end
-                if is_draw?(grid)
-                    puts "\n It's a draw!!"
-                    play_game()
-                end
-            end
+            who_starts_game()
         end
     end
 
+    # initialises available numbers in the grid, checks if there is no win, determines who should go next, plays game and switches player
+    def play_game()
+        @@available_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        @@grid = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        @@whos_turn_is_it_next = who_starts_game
+        
+        # ask question while input is not yes or no
+        # question --> start function, give input
+        # if yes - condition in while loop will break
+        # if answer is neither yes or no, it will keep asking question until loop is broken
+
+        # once this breaks it needs to ask user if they want to play again
+        while !win_game?(@@grid) || !is_draw?(@@grid)
+            # shouldn't check if win game is true inside this loop
+            # need to make it clear who the winner is 
+            # return hash that holds win = true and player
+            
+            if @@whos_turn_is_it_next == "computer"
+                @@whos_turn_is_it_next = "person"
+                computer_play(@@grid)
+                determine_outcome(@@grid, "computer")
+            else
+                @@whos_turn_is_it_next = "computer"
+                person_play(@@grid)
+                determine_outcome(@@grid, "person")
+            end
+            
+        end
+    end
+# gets user to put an X in a position, updates available positions, prints grid
     def person_play(grid)
         token = "X"
         puts "\n Please enter one of the following numbers: \n \n"
@@ -127,10 +110,10 @@ class Tic_tac_toe
     end
 
     def determine_outcome(grid, winner)
+        winner = winner == "person" ? "You" : "Computer"
         if win_game?(grid)
             print_grid(grid)
-            puts "\n \n #{winner} Wins!!"
-            break
+            puts "\n \n The winner is: #{winner}"
             play_game()
         end
         if is_draw?(grid)
@@ -151,15 +134,25 @@ class Tic_tac_toe
         right_column = grid[2] + grid[5] + grid[8]
         diag_top_left_to_bottom_right = grid[0] + grid[4] + grid[8]
         diag_bottom_left_to_top_right = grid[6] + grid[4] + grid[2]
-        if top_row == "XXX" || top_row == "OOO" || 
-            middle_row == "XXX" || middle_row == "OOO" ||
-            bottom_row == "XXX" || bottom_row == "OOO" ||
-            left_column == "XXX" || left_column == "OOO" ||
-            middle_column == "XXX" || middle_column == "OOO" ||
-            right_column == "XXX" || right_column == "OOO" ||
-            diag_top_left_to_bottom_right == "XXX" || diag_top_left_to_bottom_right == "OOO" ||
-            diag_bottom_left_to_top_right == "XXX" || diag_bottom_left_to_top_right == "OOO"
+        if top_row == "XXX" || 
+            middle_row == "XXX" || 
+            bottom_row == "XXX" || 
+            left_column == "XXX" || 
+            middle_column == "XXX" || 
+            right_column == "XXX" || 
+            diag_top_left_to_bottom_right == "XXX" || 
+            diag_bottom_left_to_top_right == "XXX" 
             true
+        elsif
+            top_row == "OOO" || 
+            middle_row == "OOO" || 
+            bottom_row == "OOO" ||
+            left_column == "OOO" || 
+            middle_column == "OOO" || 
+            right_column == "OOO" || 
+            diag_top_left_to_bottom_right == "OOO" || 
+            diag_bottom_left_to_top_right == "OOO"
+            
         else
             false
         end
@@ -179,5 +172,6 @@ end
         puts "#{grid[6]} | #{grid[7]} | #{grid[8]}"
     end
 
-
-    # who's_turn_is_it = player_1 ? who's_turn_is_it = player_2 : who's_turn_is_it = player_1
+# def change_player(whos_turn_is_it)
+#     whos_turn_is_it = "player_1" ? whos_turn_is_it = "player_2" : whos_turn_is_it = "player_1"
+# end

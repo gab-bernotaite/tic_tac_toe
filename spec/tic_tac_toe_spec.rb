@@ -46,7 +46,6 @@ describe 'tictactoe game' do
             "", "", "",
             "X", "X", "X",
             "", "", ""
-        
         ]
         expect(new_game.win_game?(grid)).to eq(true)
         grid = [
@@ -166,7 +165,7 @@ describe 'when play_game() is called' do
     #     $stdin = STDIN
     # end
 end
-
+ 
 # start with an empty grid
 # the player makes a move - X i
 # n the top-left (by entering "1")
